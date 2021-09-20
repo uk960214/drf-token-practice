@@ -13,7 +13,6 @@ class UserViewSet(viewsets.ModelViewSet):
     """
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    # permission_classes = [permissions.IsAuthenticated]
 
 class SignupView(APIView):
     def post(self, request):
@@ -26,15 +25,6 @@ class SignupView(APIView):
 class LoginView(generics.GenericAPIView):
     serializer_class = LoginSerializer
     def post(self, request):
-        # req_nickname= request.data['nickname']
-        # obj = User.objects.get(nickname=req_nickname)
-        # print(obj.password, request.data['password'])
-    
-        # if request.data['password'] == obj.password:
-        #     token = Token.objects.create(user=obj)
-        #     return Response({"Token": token.key, "User": obj.nickname})
-        # else:
-        #     return Response({"wrong nickname or password"})
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data
